@@ -1,0 +1,47 @@
+<section class="wrap">
+  <h2>Add Room Type</h2>
+  
+  <div *ngIf="formError" class="alert error">{{formError}}</div>
+
+  <form (ngSubmit)="save()" #roomTypeForm="ngForm">
+    <!-- Type -->
+    <label>Type:</label>
+    <input type="text" name="type" [(ngModel)]="roomType.name" required #type="ngModel" />
+    <div class="error" *ngIf="type.invalid && type.touched">
+      Room type is required.
+    </div>
+    <br />
+
+    <!-- Max Guests -->
+    <label>Max Guests:</label>
+    <input type="number" 
+           name="maxGuests" 
+           [(ngModel)]="roomType.maxGuests" 
+           min="1" 
+           required 
+           #maxGuests="ngModel" />
+    <div class="error" *ngIf="maxGuests.invalid && maxGuests.touched">
+      <span *ngIf="maxGuests.errors?.['required']">Max guests is required.</span>
+      <span *ngIf="maxGuests.errors?.['min']">Value must be greater than 0.</span>
+    </div>
+    <br />
+
+    <!-- Base Price -->
+    <label>Base Price:</label>
+    <input type="number" 
+           name="basePrice" 
+           [(ngModel)]="roomType.basePrice" 
+           step="0.01" 
+           min="0.01"
+           required 
+           #basePrice="ngModel" />
+    <div class="error" *ngIf="basePrice.invalid && basePrice.touched">
+      <span *ngIf="basePrice.errors?.['required']">Base price is required.</span>
+      <span *ngIf="basePrice.errors?.['min']">Price must be greater than 0.</span>
+    </div>
+    <br />
+
+    <button type="submit" class="btn primary" [disabled]="!roomTypeForm.form.valid">Save</button>
+    <button type="button" class="btn ghost" (click)="cancel()">Cancel</button>
+  </form>
+</section>

@@ -1,0 +1,32 @@
+/* Staff list specific styles */
+.table tbody td {
+  vertical-align: middle;
+}
+
+.badge {
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  border: 1px solid transparent;
+  font-size: var(--fz-100);
+}
+
+.badge.ok {
+  color: #2ea043;
+  background: rgba(46,160,67,.12);
+  border-color: rgba(46,160,67,.3);
+}
+
+.badge.bad {
+  color: #c03434;
+  background: rgba(228,87,87,.12);
+  border-color: rgba(228,87,87,.28);
+}
+
+.actions {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  white-space: nowrap;
+}

@@ -1,0 +1,117 @@
+/* Full-screen background with image */
+.auth-hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: url('https://3.imimg.com/data3/XA/IG/IMOB-18919776/hotel.jpg') 
+                no-repeat center center/cover;
+    padding: 2rem;
+    position: relative;
+  }
+  
+  /* Very light overlay (so background is visible) */
+  .auth-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.25);  /* only 25% dark */
+    backdrop-filter: blur(1px);
+  }
+  
+  /* Glassmorphic login card */
+  .auth-card {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.12); /* More transparent */
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    padding: 32px;
+    backdrop-filter: blur(18px);   /* Strong blur for readability */
+    -webkit-backdrop-filter: blur(18px);
+    color: #fff;
+    z-index: 1;
+  }
+  
+  /* Brand title */
+  .brand {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  /* Subtitle */
+  .subtitle {
+    text-align: center;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 20px;
+  }
+  
+  /* Form */
+  .form {
+    display: grid;
+    gap: 14px;
+    margin-top: 10px;
+  }
+  
+  .form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .form input {
+    height: 48px;
+    border-radius: 12px;
+    padding: 0 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 1rem;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  
+  .form input::placeholder {
+    color: rgba(255,255,255,0.65);
+  }
+  
+  .form input:focus {
+    border-color: #fff;
+    background: rgba(255,255,255,0.25);
+  }
+  
+  /* Button */
+  .btn.primary {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 18px rgba(33,150,243,0.4);
+  }
+  
+  .btn.primary:hover {
+    background: linear-gradient(135deg, #1565c0, #1e88e5);
+    transform: translateY(-2px);
+  }
+  
+  /* Error message */
+  .muted {
+    font-size: 0.9rem;
+  }
+  
+  /* Footnote */
+  .foot-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+  }
+  

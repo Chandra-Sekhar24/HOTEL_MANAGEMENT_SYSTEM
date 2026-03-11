@@ -1,0 +1,133 @@
+<section class="wrap narrow">
+  <div class="card form-card">
+    <div class="section-header">
+      <div>
+        <div class="h2">Add Staff Member</div>
+        <div class="muted">Create a new staff account</div>
+      </div>
+    </div>
+
+    <div *ngIf="formError" class="muted" style="color: #E45757; background: rgba(228,87,87,.12); padding: var(--sp-3); border-radius: var(--r-sm); margin-bottom: var(--sp-4);">
+      ⚠ {{formError}}
+    </div>
+
+    <form (ngSubmit)="save()" #staffForm="ngForm">
+      <div>
+        <label for="name">Name *</label>
+        <input 
+          id="name"
+          type="text" 
+          name="name" 
+          [(ngModel)]="staff.name" 
+          required 
+          [disabled]="loading"
+          placeholder="Enter full name"
+        />
+      </div>
+
+      <div>
+        <label for="email">Email *</label>
+        <input 
+          id="email"
+          type="email" 
+          name="email" 
+          [(ngModel)]="staff.email" 
+          required 
+          [disabled]="loading"
+          placeholder="Enter email address"
+        />
+        <div *ngIf="emailError" class="muted" style="color:#E45757; font-size: var(--fz-100); margin-top: var(--sp-1);">{{emailError}}</div>
+      </div>
+
+      <div>
+        <label for="phone">Phone *</label>
+        <input 
+          id="phone"
+          type="tel" 
+          name="phone"  maxlength="10"
+          [(ngModel)]="staff.phone" 
+          required 
+          [disabled]="loading"
+          placeholder="Enter phone number"
+        />
+        <div *ngIf="phoneError" class="muted" style="color:#E45757; font-size: var(--fz-100); margin-top: var(--sp-1);">{{phoneError}}</div>
+      </div>
+
+      <div>
+        <label for="role">Role *</label>
+        <select 
+          id="role"
+          name="role" 
+          [(ngModel)]="staff.role" 
+          required 
+          [disabled]="loading"
+        >
+          <option *ngFor="let role of roles" [value]="role.value">
+            {{role.label}}
+          </option>
+        </select>
+      </div>
+
+      <div *ngIf="staff.role === 'MANAGER' || staff.role === 'RECEPTIONIST'">
+        <label for="hotelId">Hotel *</label>
+        <select
+          id="hotelId"
+          name="hotelId"
+          [(ngModel)]="staff.hotelId"
+          [required]="staff.role === 'MANAGER' || staff.role === 'RECEPTIONIST'"
+          [disabled]="loading || hotelsLoading"
+        >
+          <option value="">Select a hotel</option>
+          <option *ngFor="let hotel of availableHotels" [value]="hotel.id">
+            {{hotel.name}} - {{hotel.city}} (ID: {{hotel.id}})
+          </option>
+        </select>
+        <div class="muted" style="font-size: var(--fz-100); margin-top: var(--sp-1);">
+          <span *ngIf="staff.role === 'MANAGER'">Only one manager can be assigned to one hotel</span>
+          <span *ngIf="staff.role === 'RECEPTIONIST'">Receptionist will be assigned to the selected hotel</span>
+        </div>
+        <div *ngIf="hotelsLoading" class="muted" style="font-size: var(--fz-100); margin-top: var(--sp-1);">
+          Loading available hotels...
+        </div>
+        <div *ngIf="!hotelsLoading && availableHotels.length === 0" class="muted" style="font-size: var(--fz-100); margin-top: var(--sp-1); color: #E45757;">
+          No hotels available. Please add hotels first.
+        </div>
+      </div>
+
+      <div>
+        <label for="status">Status</label>
+        <select 
+          id="status"
+          name="status" 
+          [(ngModel)]="staff.status" 
+          [disabled]="loading"
+        >
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+
+      <div class="stack-lg" style="margin-top: var(--sp-6);">
+        <button 
+          type="submit" 
+          class="btn primary" 
+          [disabled]="!staffForm.form.valid || loading"
+        >
+          {{loading ? 'Creating...' : 'Create Staff'}}
+        </button>
+        <button 
+          type="button" 
+          class="btn ghost" 
+          (click)="cancel()"
+          [disabled]="loading"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <div class="muted" style="margin-top: var(--sp-6); font-size: var(--fz-100);">
+      <div><strong>Note:</strong> Username and password will be automatically generated and displayed after successful creation.</div>
+    </div>
+  </div>
+</section>

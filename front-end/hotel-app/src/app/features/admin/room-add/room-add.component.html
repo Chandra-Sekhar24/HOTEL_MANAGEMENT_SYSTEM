@@ -1,0 +1,90 @@
+<section class="wrap narrow">
+  <div class="card form-card">
+    <div class="section-header">
+      <div>
+        <div class="h2">Add Room</div>
+        <div class="muted">Create a new room for this hotel</div>
+      </div>
+    </div>
+
+    <div *ngIf="formError" class="muted" style="color: #E45757; background: rgba(228,87,87,.12); padding: var(--sp-3); border-radius: var(--r-sm); margin-bottom: var(--sp-4);">
+      ⚠ {{formError}}
+    </div>
+
+    <div *ngIf="roomTypesLoading" class="muted">Loading room types...</div>
+
+    <form *ngIf="!roomTypesLoading" (ngSubmit)="save()" #roomForm="ngForm">
+      <div>
+        <label for="roomNumber">Room Number *</label>
+        <input 
+          id="roomNumber"
+          type="text" 
+          name="roomNumber" 
+          min="1"
+          [(ngModel)]="room.roomNumber" 
+          required 
+          pattern="^(?!0$).*" 
+          #roomNumber="ngModel"
+          [disabled]="loading"
+          placeholder="e.g., 101, 201A, Suite-1"
+        />
+        <div class="error" *ngIf="roomNumber.invalid && roomNumber.touched">
+            <span *ngIf="roomNumber.errors?.['required']">Room number is required.</span>
+            <span *ngIf="roomNumber.errors?.['pattern']">Room number cannot be 0.</span>
+      </div>
+      </div>
+
+      <div>
+        <label for="roomTypeId">Room Type *</label>
+        <select 
+          id="roomTypeId"
+          name="roomTypeId" 
+          [(ngModel)]="room.roomTypeId" 
+          required 
+          [disabled]="loading"
+        >
+          <option value="">Select room type</option>
+          <option *ngFor="let rt of roomTypes" [value]="rt.id">
+            {{rt.name || rt.type}} - Max {{rt.maxGuests}} guests - ₹{{rt.basePrice}}
+          </option>
+        </select>
+        <div *ngIf="!room.roomTypeId" class="muted" style="font-size: var(--fz-100); margin-top: var(--sp-1); color: #E45757;">
+          Please select a room type
+        </div>
+      </div>
+
+      <div>
+        <label for="status">Status</label>
+        <select 
+          id="status"
+          name="status" 
+          [(ngModel)]="room.status" 
+          [disabled]="loading"
+        >
+          <option *ngFor="let status of statusOptions" [value]="status.value">
+            {{status.label}}
+          </option>
+        </select>
+      </div>
+
+      <div class="stack-lg" style="margin-top: var(--sp-6);">
+        <button 
+          type="submit" 
+          class="btn primary" 
+          [disabled]="!roomForm.form.valid || loading"
+        >
+          {{loading ? 'Creating...' : 'Create Room'}}
+        </button>
+        <button 
+          type="button" 
+          class="btn ghost" 
+          (click)="cancel()"
+          [disabled]="loading"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+

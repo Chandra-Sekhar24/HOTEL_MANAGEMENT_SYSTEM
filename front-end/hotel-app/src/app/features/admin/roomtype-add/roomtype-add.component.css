@@ -1,0 +1,14 @@
+.alert.error {
+    background: #fee2e2;
+    color: #7f1d1d;
+    border: 1px solid #fecaca;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+.error {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin: 4px 0 8px;
+}

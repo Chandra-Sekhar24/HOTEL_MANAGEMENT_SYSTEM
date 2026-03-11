@@ -1,0 +1,102 @@
+<section class="dashboard">
+  <!-- Top Bar -->
+  <header class="dashboard-header">
+    <div class="brand">
+      <!-- <img src="assets/logo.png" alt="Hotel Logo" class="brand-logo" /> -->
+      <div>
+        <h1>Admin Dashboard</h1>
+        <p class="welcome">Welcome back, Admin! Monitor your hotels in one place.</p>
+      </div>
+    </div>
+    <!-- <button class="btn logout" (click)="logout()">
+      <i class="fa fa-sign-out-alt"></i> Logout
+    </button> -->
+  </header>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader">
+    <i class="fa fa-spinner fa-spin"></i> Loading dashboard data...
+  </div>
+
+  <!-- Stats -->
+  <div *ngIf="!loading" class="stats-cards">
+    <div class="card stat">
+      <i class="fa fa-hotel icon hotel"></i>
+      <div>
+        <h2>{{ stats.totalHotels }}</h2>
+        <p>Total Hotels</p>
+      </div>
+    </div>
+
+    <div class="card stat">
+      <i class="fa fa-door-open icon room"></i>
+      <div>
+        <h2>{{ stats.totalRooms }}</h2>
+        <p>Total Rooms</p>
+      </div>
+    </div>
+
+    <!-- <div class="card stat">
+      <i class="fa fa-calendar-check icon booking"></i>
+      <div>
+        <h2>{{ stats.totalBookings }}</h2>
+        <p>Current Bookings</p>
+      </div>
+    </div>
+
+    <div class="card stat">
+      <i class="fa fa-user-check icon checkin"></i>
+      <div>
+        <h2>{{ stats.activeCheckIns }}</h2>
+        <p>Active Check-ins</p>
+      </div>
+    </div>
+
+    <div class="card stat">
+      <i class="fa fa-clock icon pending"></i>
+      <div>
+        <h2>{{ stats.pendingCheckIns }}</h2>
+        <p>Pending Check-ins</p>
+      </div>
+    </div> -->
+
+    <div class="card stat">
+      <i class="fa fa-users icon staff"></i>
+      <div>
+        <h2>{{ stats.activeStaff }}</h2>
+        <p>Active Staff</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div *ngIf="!loading" class="card quick-actions">
+    <h2><i class="fa fa-bolt"></i> Quick Actions</h2>
+    <div class="actions">
+      <a routerLink="/admin/hotels/add" class="btn primary">
+        <i class="fa fa-plus"></i> Add Hotel
+      </a>
+      <a routerLink="/admin/staff/add" class="btn primary">
+        <i class="fa fa-user-plus"></i> Add Staff
+      </a>
+    </div>
+  </div>
+
+  <!-- Management Links -->
+  <div *ngIf="!loading" class="card management">
+    <h2><i class="fa fa-cogs"></i> Management</h2>
+    <div class="management-grid">
+      <a routerLink="/admin/hotels" class="manage-item">
+        <i class="fa fa-building"></i>
+        <h3>Hotels</h3>
+        <p>Manage hotel properties</p>
+      </a>
+      <a routerLink="/admin/staff" class="manage-item">
+        <i class="fa fa-user-tie"></i>
+        <h3>Staff</h3>
+        <p>Manage staff accounts</p>
+      </a>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,44 @@
+<section class="wrap section">
+  <div class="section-header">
+    <div>
+      <div class="h2">Staff Management</div>
+      <div class="muted">Manage staff accounts and permissions</div>
+    </div>
+    <a class="btn primary" routerLink="/admin/staff/add">+ Add Staff</a>
+  </div>
+
+  <div *ngIf="loading" class="muted">Loading staff data...</div>
+
+  <table *ngIf="!loading" class="table">
+    <thead>
+      <tr>
+        <th style="width:80px">ID</th>
+        <th>Name</th>
+        <th style="width:200px">Email</th>
+        <th style="width:150px">Phone</th>
+        <th style="width:120px">Role</th>
+        <th style="width:100px">Hotel ID</th>
+        <th style="width:200px"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of staff">
+        <td>{{s.id}}</td>
+        <td>{{s.name}}</td>
+        <td>{{s.email}}</td>
+        <td>{{s.phone}}</td>
+        <td><span class="badge" [ngClass]="s.role === 'MANAGER' ? 'primary' : 'secondary'">{{s.role}}</span></td>
+        <td>{{s.hotel?.id || s.hotelId || '-'}}</td>
+        <td class="actions">
+          <button class="btn sm danger" (click)="delete(s.id!)">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="staff.length === 0">
+        <td colspan="7" style="text-align: center; padding: var(--sp-8); color: var(--muted);">
+          No staff members found. <a routerLink="/admin/staff/add" class="btn primary" style="margin-left: var(--sp-3);">Add your first staff member</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+

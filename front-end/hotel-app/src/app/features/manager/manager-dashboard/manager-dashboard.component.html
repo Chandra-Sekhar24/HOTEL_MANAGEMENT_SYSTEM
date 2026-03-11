@@ -1,0 +1,81 @@
+<section class="manager-dashboard">
+  <!-- Top Bar -->
+  <div class="dashboard-header">
+    <div>
+      <h1 class="title"><i class="fa-solid fa-user-tie"></i> Manager Dashboard</h1>
+      <p class="subtitle">{{ hotelName ? ('Hotel: ' + hotelName) : 'Your assigned hotel' }}</p>
+    </div>
+    <div class="top-actions">
+      <a class="btn profile" routerLink="/manager/profile"><i class="fa-solid fa-id-card"></i> Profile</a>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loader">Loading manager data...</div>
+
+  <!-- Stats Cards -->
+  <div *ngIf="!loading" class="stats-grid">
+    <div class="stat-card">
+      <i class="fa-solid fa-door-closed icon room"></i>
+      <div>
+        <div class="stat-number">{{stats.totalRooms}}</div>
+        <div class="stat-label">Total Rooms</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-calendar-check icon booking"></i>
+      <div>
+        <div class="stat-number">{{stats.currentTotalBookings || stats.totalBookings}}</div>
+        <div class="stat-label">Current Bookings</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-user-check icon checkin"></i>
+      <div>
+        <div class="stat-number">{{stats.activeCheckIns}}</div>
+        <div class="stat-label">Active Check-ins</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-clock icon pending"></i>
+      <div>
+        <div class="stat-number">{{stats.pendingCheckIns}}</div>
+        <div class="stat-label">Pending Check-ins</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fa-solid fa-users icon staff"></i>
+      <div>
+        <div class="stat-number">{{stats.activeStaff}}</div>
+        <div class="stat-label">Active Staff</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div *ngIf="!loading" class="card management">
+    <h2>Management</h2>
+    <div class="nav-grid">
+      <a class="nav-card" routerLink="/manager/hotel">
+        <i class="fa-solid fa-hotel nav-icon"></i>
+        <div class="nav-title">Hotel Management</div>
+        <div class="nav-desc">Rooms and types in your hotel</div>
+      </a>
+      <a class="nav-card" routerLink="/manager/staff">
+        <i class="fa-solid fa-user-group nav-icon"></i>
+        <div class="nav-title">Staff Management</div>
+        <div class="nav-desc">Receptionists in your hotel</div>
+      </a>
+      <a class="nav-card" routerLink="/manager/bookings">
+        <i class="fa-solid fa-clipboard-list nav-icon"></i>
+        <div class="nav-title">Bookings</div>
+        <div class="nav-desc">Overview and filters</div>
+      </a>
+      <a class="nav-card" routerLink="/manager/reports">
+        <i class="fa-solid fa-chart-line nav-icon"></i>
+        <div class="nav-title">Reports</div>
+        <div class="nav-desc">Occupancy and revenue</div>
+      </a>
+    </div>
+  </div>
+</section>

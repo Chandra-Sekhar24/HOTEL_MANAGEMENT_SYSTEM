@@ -1,0 +1,33 @@
+/* Room edit form specific styles */
+.form-card {
+  max-width: 500px;
+  margin: var(--sp-8) auto;
+}
+
+form {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+form > div {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+input:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(177,166,150,.25);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+

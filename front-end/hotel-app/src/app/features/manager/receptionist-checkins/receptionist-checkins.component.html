@@ -1,0 +1,65 @@
+<div class="checkins-dashboard">
+    <!-- Header -->
+    <div class="header">
+      <h2><i class="fa-solid fa-calendar-check"></i> Today’s Check-ins</h2>
+      <div class="actions">
+        <button class="btn refresh" (click)="load()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+        <a class="btn back" routerLink="/receptionist/dashboard"><i class="fa-solid fa-arrow-left"></i> Back</a>
+      </div>
+    </div>
+  
+    <!-- Table -->
+    <div class="card table-wrap" *ngIf="items.length; else empty">
+      <table>
+        <thead>
+          <tr>
+            <th><i class="fa-solid fa-user"></i> Guest</th>
+            <th><i class="fa-solid fa-barcode"></i> Booking Code</th>
+            <th><i class="fa-solid fa-bed"></i> Room</th>
+            <th><i class="fa-solid fa-info-circle"></i> Status</th>
+            <th><i class="fa-solid fa-cogs"></i> Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of items">
+            <td>{{b.guestName}}</td>
+            <td>{{b.bookingCode}}</td>
+            <td>{{b.room?.roomNumber}}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'success': b.status==='BOOKED',
+                'warn': b.status==='CANCELLED',
+                'info': b.status==='CHECKED_IN'
+              }">{{b.status}}</span>
+            </td>
+            <td>
+              <button class="btn primary" (click)="checkIn(b)" [disabled]="b.status!=='BOOKED'">
+                <i class="fa-solid fa-door-open"></i> Check-in
+              </button>
+            </td>
+            <td>
+              <button class="btn primary" (click)="checkOut(b)" [disabled]="b.status!=='CHECKED_IN'">
+               <i class="fa-solid fa-door-closed"></i> Check-out
+             </button>
+            </td>
+            <td>
+              <button class="btn primary" (click)="cancle(b)" [disabled]="b.status!=='BOOKED'">
+              <i class="fa-solid fa-xmark"></i> Cancle
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Empty State -->
+    <ng-template #empty>
+      <div class="empty"><i class="fa-solid fa-circle-info"></i> No check-ins today.</div>
+    </ng-template>
+  
+    <!-- Toast -->
+    <div class="toast" *ngIf="toast">
+      <i class="fa-solid fa-bell"></i> {{toast}}
+    </div>
+  </div>
+  

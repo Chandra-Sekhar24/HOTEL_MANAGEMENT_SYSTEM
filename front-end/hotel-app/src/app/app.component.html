@@ -1,0 +1,92 @@
+  <!-- <header class="navbar">
+      <a routerLink="/" class="brand">Hotel Admin</a>
+      <nav>
+        <a routerLink="/hotels" routerLinkActive="active">Hotels</a>
+      </nav>
+    </header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+     -->
+
+<!-- <header class="appbar" *ngIf="isLoggedIn">
+  <div class="inner wrap" style="padding-left:var(--sp-6); padding-right:var(--sp-6);">
+    <div class="brand h2">Hotel Management System</div>
+    <nav class="nav">
+      <a *ngIf="role==='ADMIN'" routerLink="/admin/dashboard" routerLinkActive="active">Admin</a>
+      <a *ngIf="role==='MANAGER'" routerLink="/manager/dashboard" routerLinkActive="active">Manager</a>
+      <a *ngIf="role==='RECEPTIONIST'" routerLink="/receptionist/dashboard" routerLinkActive="active">Receptionist</a>
+      <button class="icon" title="Change Password" (click)="showPwd=true">👤 {{userName}}</button>
+      <button class="btn danger" (click)="logout()" style="margin-left: var(--sp-3);">Logout</button>
+    </nav>
+  </div>
+</header> -->
+<header class="appbar" *ngIf="isLoggedIn">
+  <div class="inner wrap">
+    <div class="brand h2">
+      <i class="fa-solid fa-hotel"></i> The BloomStone Hotels 
+    </div>
+
+    <nav class="nav">
+     
+      <a *ngIf="role==='ADMIN'" routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+      </a>
+      <a *ngIf="role==='MANAGER'" routerLink="/manager/dashboard" routerLinkActive="active">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+      </a>
+      <a *ngIf="role==='RECEPTIONIST'" routerLink="/receptionist/dashboard" routerLinkActive="active">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+      </a>
+
+      <a *ngIf="role==='ADMIN'" routerLink="/admin/hotels" routerLinkActive="active">
+        <i class="fa-solid fa-hotel"></i> Hotels
+      </a>
+      <a *ngIf="role==='ADMIN'" routerLink="/admin/staff" routerLinkActive="active">
+        <i class="fa-solid fa-users"></i> Staff
+      </a>
+
+      
+      <button class="icon user-btn" title="Change Password" (click)="showPwd=true">
+        <i class="fa-solid fa-user"></i> {{userName}}
+      </button>
+      <button class="btn danger" (click)="logout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </nav>
+  </div>
+</header>
+
+
+ 
+<main>
+<router-outlet></router-outlet>
+</main>
+
+<div class="modal" *ngIf="showPwd">
+  <div class="modal-body">
+    <h3>Update Password</h3>
+    <form (ngSubmit)="updatePassword()">
+      <input type="password" [(ngModel)]="password" name="password" placeholder="New password" required>
+      <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+      <div class="row">
+        <button class="btn" type="button" (click)="showPwd=false">Cancel</button>
+        <button class="btn" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+  <div class="backdrop" (click)="showPwd=false"></div>
+  <div class="toast" *ngIf="toast">{{toast}}</div>
+</div>
+<footer class="site-footer" *ngIf="isLoggedIn">
+  <div class="wrap footer-inner">
+    <div class="brand">The BloomStone Hotels</div>
+    <nav class="footer-nav">
+      <a routerLink="/admin/hotels">Hotels</a>
+      <a routerLink="/admin/staff">Staff</a>
+      <a href="mailto:support@example.com">Support</a>
+      <a href="#">Privacy</a>
+    </nav>
+    <div class="copy">© {{currentYear}} The BloomStone Hotels</div>
+  </div>
+</footer>

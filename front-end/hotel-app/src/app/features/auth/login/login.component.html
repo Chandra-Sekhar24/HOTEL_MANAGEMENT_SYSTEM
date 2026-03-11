@@ -1,0 +1,25 @@
+<section class="auth-hero">
+  <div class="auth-card">
+    <div class="brand">Welcome to <br>The BloomStone Hotels</div>
+    <div class="subtitle">Sign in to your account</div>
+
+    <div *ngIf="error" class="muted" style="color: #E45757; background: rgba(228,87,87,.12); padding: var(--sp-3); border-radius: var(--r-sm); margin-bottom: var(--sp-4);">
+      ⚠ {{error}}
+    </div>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="form">
+      <label for="username">Email / Username</label>
+      <input id="username" type="text" name="username" [(ngModel)]="credentials.username" required [disabled]="loading" placeholder="Enter your email or username" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" [(ngModel)]="credentials.password" required [disabled]="loading" placeholder="Enter your password" />
+
+      <button type="submit" class="btn primary" [disabled]="!loginForm.form.valid || loading">
+        {{loading ? 'Signing in...' : 'Sign In'}}
+      </button>
+    </form>
+
+    <!-- <div class="foot-note">Default admin: admin / admin&#64;123</div> -->
+  </div>
+</section>
+

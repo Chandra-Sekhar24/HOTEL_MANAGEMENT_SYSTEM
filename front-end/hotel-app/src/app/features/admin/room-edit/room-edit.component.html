@@ -1,0 +1,81 @@
+<section class="wrap narrow">
+  <div class="card form-card">
+    <div class="section-header">
+      <div>
+        <div class="h2">Edit Room</div>
+        <div class="muted">Update room information</div>
+      </div>
+    </div>
+
+    <div *ngIf="formError" class="muted" style="color: #E45757; background: rgba(228,87,87,.12); padding: var(--sp-3); border-radius: var(--r-sm); margin-bottom: var(--sp-4);">
+      ⚠ {{formError}}
+    </div>
+
+    <div *ngIf="roomTypesLoading" class="muted">Loading room types...</div>
+
+    <form *ngIf="!roomTypesLoading" (ngSubmit)="save()" #roomForm="ngForm">
+      <div>
+        <label for="roomNumber">Room Number *</label>
+        <input 
+          id="roomNumber"
+          type="text" 
+          name="roomNumber" 
+          [(ngModel)]="room.roomNumber" 
+          required 
+          [disabled]="loading"
+          placeholder="e.g., 101, 201A, Suite-1"
+        />
+      </div>
+
+      <div>
+        <label for="roomTypeId">Room Type *</label>
+        <select 
+          id="roomTypeId"
+          name="roomTypeId" 
+          [(ngModel)]="room.roomType.id" 
+          required 
+          [disabled]="loading"
+        >
+          <option value="">Select room type</option>
+          <option *ngFor="let rt of roomTypes" [value]="rt.id">
+            {{rt.name || rt.type}} - Max {{rt.maxGuests}} guests - ₹{{rt.basePrice}}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="status">Status</label>
+        <select 
+          id="status"
+          name="status" 
+          [(ngModel)]="room.status" 
+          [disabled]="loading"
+        >
+          <option *ngFor="let status of statusOptions" [value]="status.value">
+            {{status.label}}
+          </option>
+        </select>
+      </div>
+
+      <div class="stack-lg" style="margin-top: var(--sp-6);">
+        <button 
+          type="submit" 
+          class="btn primary" 
+          [disabled]="!roomForm.form.valid || loading"
+        >
+          {{loading ? 'Updating...' : 'Update Room'}}
+        </button>
+        <button 
+          type="button" 
+          class="btn ghost" 
+          (click)="cancel()"
+          [disabled]="loading"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+
