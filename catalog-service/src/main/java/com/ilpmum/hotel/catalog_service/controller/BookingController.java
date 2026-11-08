@@ -151,25 +151,6 @@ public class BookingController {
         rooms.save(room);
         return ResponseEntity.ok(room);
     }
-    @PostMapping("/bookings/{bookingId}/cancle")
-    public ResponseEntity<?> cancle(@PathVariable Long hotelId, @PathVariable Long bookingId) {
-        var booking = bookings.findById(bookingId).orElseThrow();
-        if (!Objects.equals(booking.getHotel().getId(), hotelId)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        //if (booking.getStatus() != Booking.Status.CHECKED_IN) return ResponseEntity.status(HttpStatus.CONFLICT).body("Booking is not in CHECKED_IN status");
-
-        // Validate current day matches scheduled checkout day
-        LocalDate today = LocalDate.now();
-        if (!today.equals(booking.getCheckInTime().toLocalDate()) || today.isBefore(booking.getCheckInTime().toLocalDate())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Cancellation not allowed");
-        }
-
-        booking.setStatus(Booking.Status.CHECKED_OUT);
-        // Release room to AVAILABLE
-        var room = booking.getRoom();
-        room.setStatus(Room.Status.AVAILABLE);
-        rooms.save(room);
-        return ResponseEntity.ok(bookings.save(booking));
-    }
 }
 
 
